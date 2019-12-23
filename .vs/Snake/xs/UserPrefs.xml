@@ -1,0 +1,35 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameHandler.cs">
+    <Files>
+      <File FileName="Assets/Scripts/LevelGrid.cs" Line="148" Column="30" />
+      <File FileName="Assets/Scripts/GameHandler.cs" Line="121" Column="1" />
+      <File FileName="Assets/Scripts/GameAssets.cs" />
+      <File FileName="Assets/Scripts/ScoreWindow.cs" Line="15" Column="60" />
+      <File FileName="Assets/Scripts/LoaderCallBack.cs" />
+      <File FileName="Assets/Scripts/GameOverWindow.cs" />
+      <File FileName="Assets/Scripts/MainMenuWindow.cs" />
+      <File FileName="Assets/Scripts/Snake.cs" />
+      <File FileName="Assets/Scripts/OnMouseButton.cs" />
+      <File FileName="Assets/Scripts/InterFace.cs" />
+      <File FileName="Assets/Scripts/Loader.cs" />
+      <File FileName="Assets/Scripts/PauseWindow.cs" />
+      <File FileName="Assets/Scripts/SoundManager.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Snake" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>Assembly-CSharp.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
