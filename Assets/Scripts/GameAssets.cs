@@ -1,0 +1,37 @@
+﻿
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameAssets : MonoBehaviour
+{
+
+    public static GameAssets i;
+
+    private void Awake() {
+        i = this;
+    }
+    
+    public Sprite snakeHeadSprite;
+    public Sprite snakeBodySprite;
+    public Sprite foodSprite;
+    public Sprite badSprite;
+    public Sprite priseSprite1;
+    public Sprite priseSprite2;
+    public Sprite priseSprite3;
+
+
+
+
+
+    public SoundAudioClip[] soundAudioClipsArray;
+
+    [Serializable]
+    public class SoundAudioClip {
+        public SoundManager.Sound sound;
+        public AudioClip audioClip;
+    }
+
+
+}
