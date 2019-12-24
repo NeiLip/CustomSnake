@@ -30,15 +30,25 @@ public class ScoreWindow : MonoBehaviour
 
     public static void showThougth(int thoughtNum) {
         if (thoughtNum > 0) {
-            thoughtTxt[thoughtNum - 1].enabled = false;
+            if (thoughtNum == 8) {
+                thoughtTxt[5].enabled = false;
+            }
+            else {
+                thoughtTxt[thoughtNum - 1].enabled = false;
+            }
         }
         thoughtTxt[thoughtNum].enabled = true;
     }
 
     public static void hideThougth(int thoughtNum) {
-        thoughtTxt[thoughtNum].enabled = false;
         if (thoughtNum > 0) {
-            thoughtTxt[thoughtNum - 1].enabled = true;
+            if (thoughtNum == 8) {
+                thoughtTxt[5].enabled = true;
+            }
+            else {
+                thoughtTxt[thoughtNum - 1].enabled = true;
+            }
         }
+        thoughtTxt[thoughtNum].enabled = false;
     }
 }

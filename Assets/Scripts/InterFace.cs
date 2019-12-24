@@ -17,9 +17,13 @@ public class InterFace : MonoBehaviour
     public static int chosenSize;
 
 
-    private void Awake() {
 
-       
+
+    private void Awake() {
+        difDrop.value = chosenDif;
+        lenDrop.value = chosenLen;
+        startSizeDrop.value = chosenSize;
+
         //When Clicing Play on main menu
         transform.Find("toMenuBtn").GetComponent<Button_UI>().ClickFunc = () =>
         {

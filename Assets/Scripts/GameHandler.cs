@@ -36,11 +36,6 @@ public class GameHandler : MonoBehaviour {
     private void Start() {
         Debug.Log("GameHandler.Start");
 
-        difficaltyIndex = InterFace.chosenDif;
-        lengthIndex = InterFace.chosenLen;
-        startSize = InterFace.chosenSize;
-
-
         levelGrid = new LevelGrid(20, 20);
 
         snake.Setup(levelGrid);
@@ -60,6 +55,10 @@ public class GameHandler : MonoBehaviour {
     }
 
     private static void InitializeStatic() {
+        difficaltyIndex = InterFace.chosenDif;
+        lengthIndex = InterFace.chosenLen;
+        startSize = InterFace.chosenSize;
+
         score = 0;
         curProgPart = 1;
         numOfPrizesGot = 0;
@@ -128,7 +127,7 @@ public class GameHandler : MonoBehaviour {
 
             if (curProgPart != 7) {
                 if (curProgPart != 8) {
-                    ScoreWindow.showThougth(curProgPart - 1);
+                    ScoreWindow.hideThougth(curProgPart - 1);
                 }
             }
 
