@@ -12,6 +12,11 @@ public class InterFace : MonoBehaviour
     public Dropdown startSizeDrop;
 
 
+    public static int chosenDif;
+    public static int chosenLen;
+    public static int chosenSize;
+
+
     private void Awake() {
 
        
@@ -43,9 +48,11 @@ public class InterFace : MonoBehaviour
     }
 
     private void Update() {
-        GameHandler.difficaltyIndex = difDrop.value;
-        GameHandler.lengthIndex = lenDrop.value;
-        GameHandler.startSize = startSizeDrop.value;
+        chosenDif = difDrop.value;
+        chosenLen = lenDrop.value;
+        chosenSize = startSizeDrop.value;
+
+      
     }
 
 

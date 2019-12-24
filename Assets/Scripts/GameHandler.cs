@@ -20,7 +20,6 @@ public class GameHandler : MonoBehaviour {
 
 
     public static int difficaltyIndex;
-    private static int difficalty;
     public static int lengthIndex;
     private static int length;
     public static int startSize;
@@ -30,12 +29,18 @@ public class GameHandler : MonoBehaviour {
         instance = this;
         InitializeStatic();
 
+
         GameHandler.ResumeGame();
     }
 
     private void Start() {
         Debug.Log("GameHandler.Start");
-       
+
+        difficaltyIndex = InterFace.chosenDif;
+        lengthIndex = InterFace.chosenLen;
+        startSize = InterFace.chosenSize;
+
+
         levelGrid = new LevelGrid(20, 20);
 
         snake.Setup(levelGrid);
@@ -95,6 +100,11 @@ public class GameHandler : MonoBehaviour {
                 progPart = GameObject.Find(strProgPart);
                 progPart.GetComponent<SpriteRenderer>().enabled = true;
 
+                if (curProgPart != 7 ) {
+                    if (curProgPart != 8) {
+                        ScoreWindow.showThougth(curProgPart - 1);
+                    }
+                }
                 //// Show emoji symbols on progress bar - CANCELED
                 //if (curProgPart == 1 || curProgPart == 3 || curProgPart == 5 || curProgPart == 11 || curProgPart == 14 || curProgPart == 18) { 
                 //    string strProgPartChild = "emoji" + curProgPart.ToString();
@@ -116,12 +126,18 @@ public class GameHandler : MonoBehaviour {
             progPart = GameObject.Find(strProgPart);
             progPart.GetComponent<SpriteRenderer>().enabled = false;
 
-			//// Show emoji symbols on progress bar - CANCELED
-			//if (curProgPart == 1 || curProgPart == 3 || curProgPart == 5 || curProgPart == 11 || curProgPart == 14 || curProgPart == 18) {
-   //             string strProgPartChild = "emoji" + curProgPart.ToString();
-   //             progPartChild = GameObject.Find(strProgPartChild);
-   //             progPartChild.GetComponent<SpriteRenderer>().enabled = false;
-   //         }
+            if (curProgPart != 7) {
+                if (curProgPart != 8) {
+                    ScoreWindow.showThougth(curProgPart - 1);
+                }
+            }
+
+            //// Show emoji symbols on progress bar - CANCELED
+            //if (curProgPart == 1 || curProgPart == 3 || curProgPart == 5 || curProgPart == 11 || curProgPart == 14 || curProgPart == 18) {
+            //             string strProgPartChild = "emoji" + curProgPart.ToString();
+            //             progPartChild = GameObject.Find(strProgPartChild);
+            //             progPartChild.GetComponent<SpriteRenderer>().enabled = false;
+            //         }
         }
         
     }
