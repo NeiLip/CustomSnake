@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\GameAssets.cs" />
     <Compile Include="Assets\Scripts\GameHandler.cs" />
     <Compile Include="Assets\Scripts\GameOverWindow.cs" />
+    <Compile Include="Assets\Scripts\GameSound.cs" />
     <Compile Include="Assets\Scripts\InterFace.cs" />
     <Compile Include="Assets\Scripts\LevelGrid.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
@@ -98,6 +99,9 @@
     <None Include="Assets\CodeMonkey\README.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.multiplayer-hlapi.Editor">
+      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
@@ -114,23 +118,14 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.multiplayer-hlapi.Editor">
-      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="com.unity.multiplayer-weaver.Editor">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
@@ -144,11 +139,17 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>

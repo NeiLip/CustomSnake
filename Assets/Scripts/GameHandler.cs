@@ -14,7 +14,7 @@ public class GameHandler : MonoBehaviour {
 
     private LevelGrid levelGrid;
 
-    private static int curProgPart;
+    public static int curProgPart;
     private static GameObject progPart;
     private static GameObject progPartChild;
 

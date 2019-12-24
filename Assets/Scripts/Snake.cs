@@ -119,10 +119,28 @@ public class Snake : MonoBehaviour {
         }
     }
 
+
+    private bool soundChanged;
     private void HandleGridMovement() {
         gridMoveTimer += Time.deltaTime;
         if (gridMoveTimer >= gridMoveTimerMax) {
             gridMoveTimer -= gridMoveTimerMax;
+
+            //Check BG Audio
+            if (GameHandler.curProgPart == 8 || GameHandler.curProgPart == 10) {
+                soundChanged = false;
+            }
+            if (GameHandler.curProgPart == 9 && soundChanged == false) {
+                if (GameSound.sadIsPlayed()) {
+                    GameSound.StopSad();
+                    GameSound.PlayHappy();
+                }
+                else if (GameSound.happyIsPlayed()) {
+                    GameSound.StopHappy();
+                    GameSound.PlaySad();
+                }
+                soundChanged = true;
+            }
 
             //Setting start size
             if (GameHandler.startSize > 0) {

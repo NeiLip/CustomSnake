@@ -5,6 +5,9 @@ using CodeMonkey.Utils;
 
 public class MainMenuWindow : MonoBehaviour {
 
+
+
+
     private enum Sub {
         Main,
         HowToPlay,
@@ -22,6 +25,8 @@ public class MainMenuWindow : MonoBehaviour {
 
     private void Awake() {
 
+
+        
         //Placing Menu window and HowToPlay window at 0,0
         transform.Find("howToPlaySub").GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         transform.Find("mainSub").GetComponent<RectTransform>().anchoredPosition = Vector2.zero;

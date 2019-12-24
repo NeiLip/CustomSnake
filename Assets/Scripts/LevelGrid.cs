@@ -95,7 +95,6 @@ public class LevelGrid {
         priseGameObject = new GameObject("Food", typeof(SpriteRenderer));
 
         int curRand = Random.Range(1, 4);
-        Debug.Log("Random: " + curRand.ToString());
         lastPrise = curRand;
         if (curRand == 1) {
             priseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
+
     public enum Sound{
         SnakeMove,
         SnakeDie,
@@ -12,11 +13,15 @@ public class SoundManager : MonoBehaviour
         ButtonClick,
         ButtonOver,
     }
+    
+
    public static void PlaySound(Sound sound) {
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         audioSource.PlayOneShot(GetAudioClip(sound));
     }
+
+  
 
     private static AudioClip GetAudioClip(Sound sound) {
         foreach (GameAssets.SoundAudioClip soundAudioClip in GameAssets.i.soundAudioClipsArray) {
@@ -27,4 +32,7 @@ public class SoundManager : MonoBehaviour
         Debug.LogError("Sound " + sound + " not found!");
         return null;
     }
+
+
+
 }
