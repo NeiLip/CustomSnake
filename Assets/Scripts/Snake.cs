@@ -126,10 +126,11 @@ public class Snake : MonoBehaviour {
         if (gridMoveTimer >= gridMoveTimerMax) {
             gridMoveTimer -= gridMoveTimerMax;
 
-            //Check BG Audio
+            // Set soundChanged to false so that on level 9 the sound will be changed
             if (GameHandler.curProgPart == 8 || GameHandler.curProgPart == 10) {
                 soundChanged = false;
             }
+            //Check BG Audio and changing it if needed
             if (GameHandler.curProgPart == 9 && soundChanged == false) {
                 if (GameSound.sadIsPlayed()) {
                     GameSound.StopSad();

@@ -18,6 +18,8 @@ public class GameHandler : MonoBehaviour {
     private static GameObject progPart;
     private static GameObject progPartChild;
 
+    public static GameObject particleSys;
+
 
     public static int difficaltyIndex;
     public static int lengthIndex;
@@ -63,6 +65,9 @@ public class GameHandler : MonoBehaviour {
         curProgPart = 1;
         numOfPrizesGot = 0;
 
+
+        particleSys = GameObject.Find("MaxPartSys");
+
         locationsY.Add(4);
         locationsY.Add(6);
         locationsY.Add(8);
@@ -93,6 +98,12 @@ public class GameHandler : MonoBehaviour {
     // Add Score and add Progress Bar if needed
     public static void AddScore() {
         score += 10;
+
+        //Progress bar is on max
+        if (curProgPart >= 18) {
+            PlayParticleOnMax();
+        }
+
         if (score % length == 0) {
             if (curProgPart < 19) {
                 string strProgPart = "progPart" + curProgPart.ToString();
@@ -151,42 +162,12 @@ public class GameHandler : MonoBehaviour {
     // GotPrise gets prise number and place a sprite of it on the shelf
     public static void GotPrise(int whichPrise) {
 
-        //// START <<<<<<---------------##############<<<<<<<<<<<<<<<<<<<<<
-
-        //Vector2Int prisePosition = new Vector2Int(Random.Range(-2, -4), Random.Range(2, 17));
-        //bool goodLoc = false;
-        //bool soFarSoGood;
-
-        //while (goodLoc == false) {
-
-        //    prisePosition = new Vector2Int(Random.Range(-2, -4), Random.Range(2, 17));
-        //    soFarSoGood = true;
-        //    for (int i = 0; i < numOfPrizesGot; i++) {
-        //        //Check if in the same row
-        //        if (prizesLocations[i].y == prisePosition.y || prizesLocations[i].y == prisePosition.y + 1 ||
-        //                                                       prizesLocations[i].y == prisePosition.y - 1) {
-        //            soFarSoGood = false;
-        //            break;
-        //        }
-        //    }
-        //    if (soFarSoGood == true) {
-        //        goodLoc = true;
-        //    }
-        //}
-        //prizesLocations.Add(prisePosition);
-
-        ////   THE CODE ABOVE (commented) DO THE SAME AS THE CODE BELOW (real code, uncommented) <<<<<<---------------##############<<<<<<<<<<<<<<<<<<<<<
 
         int rnd = Random.Range(0, locationsY.Count);
 
         Vector2Int prisePosition = new Vector2Int(-3, locationsY[rnd]);
 
         locationsY.RemoveAt(rnd);
-
-        ///// END <<<<<<---------------##############<<<<<<<<<<<<<<<<<<<<<
-
-
-
 
         if (whichPrise == 1) {
             curPriseGameObject = new GameObject("Food", typeof(SpriteRenderer));
@@ -205,7 +186,13 @@ public class GameHandler : MonoBehaviour {
         }
 
         numOfPrizesGot++;
-     
+    }
+
+
+    public static void PlayParticleOnMax() {
+        ParticleSystem currPS = particleSys.GetComponent<ParticleSystem>();
+        
+        currPS.Play();
     }
 
   
