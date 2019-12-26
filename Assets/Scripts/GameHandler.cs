@@ -5,6 +5,7 @@ using UnityEngine;
 using CodeMonkey;
 using CodeMonkey.Utils;
 using System.IO;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour {
      
@@ -27,6 +28,12 @@ public class GameHandler : MonoBehaviour {
     public static int startSize;
 
 
+  
+    private static int curMessage;
+  
+  //  private static Text curMessageText;
+
+
     private void Awake() {
         instance = this;
         InitializeStatic();
@@ -37,11 +44,12 @@ public class GameHandler : MonoBehaviour {
 
     private void Start() {
         Debug.Log("GameHandler.Start");
-
+    
         levelGrid = new LevelGrid(20, 20);
 
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
+
     }
 
     private void Update() {
@@ -54,6 +62,7 @@ public class GameHandler : MonoBehaviour {
                 GameHandler.PauseGame();
             }
         }
+
     }
 
     private static void InitializeStatic() {
@@ -65,6 +74,7 @@ public class GameHandler : MonoBehaviour {
         curProgPart = 1;
         numOfPrizesGot = 0;
 
+        curMessage = 1;
 
         particleSys = GameObject.Find("MaxPartSys");
 
@@ -98,7 +108,7 @@ public class GameHandler : MonoBehaviour {
     // Add Score and add Progress Bar if needed
     public static void AddScore() {
         score += 10;
-
+       
         //Progress bar is on max
         if (curProgPart >= 18) {
             PlayParticleOnMax();
@@ -113,6 +123,9 @@ public class GameHandler : MonoBehaviour {
                 if (curProgPart != 7 ) {
                     if (curProgPart != 8) {
                         ScoreWindow.showThougth(curProgPart - 1);
+                        MessageWindow.SetMessageText(curMessage);
+                        curMessage++;
+                        PauseGameForMessage();
                     }
                 }
                 //// Show emoji symbols on progress bar - CANCELED
@@ -122,7 +135,9 @@ public class GameHandler : MonoBehaviour {
                 //    progPartChild.GetComponent<SpriteRenderer>().enabled = true;
                 //}
 
-                curProgPart++;               
+                curProgPart++;
+
+                
             }
         }
     }
@@ -132,6 +147,7 @@ public class GameHandler : MonoBehaviour {
         score -= 10;
         if (curProgPart > 1)  {
             curProgPart--;
+            curMessage--;
             string strProgPart = "progPart" + curProgPart.ToString();
             progPart = GameObject.Find(strProgPart);
             progPart.GetComponent<SpriteRenderer>().enabled = false;
@@ -204,6 +220,7 @@ public class GameHandler : MonoBehaviour {
     }
 
     public static void ResumeGame() {
+        MessageWindow.HideStatic();
         PauseWindow.HideStatic();
         Time.timeScale = 1f;
     }
@@ -212,7 +229,21 @@ public class GameHandler : MonoBehaviour {
         Time.timeScale = 0f;
     }
 
+
+    public static void PauseGameForMessage() {
+        MessageWindow.ShowStatic();
+        Time.timeScale = 0f;
+    }
+
+    public static void ResumeGameForMessage() {
+        MessageWindow.HideStatic();
+        Time.timeScale = 1f;
+    }
+
     public static bool IsGamePause() {
         return Time.timeScale == 0f;
     }
+
+    
+   
 }

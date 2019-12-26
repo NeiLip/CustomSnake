@@ -1,18 +1,19 @@
 ﻿<Properties StartupConfiguration="{27E3B7BB-7210-4DB8-2CDE-8C5F9221D3B6}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Snake.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MessageWindow.cs">
     <Files>
       <File FileName="Assets/Scripts/InterFace.cs" Line="25" Column="41" />
-      <File FileName="Assets/Scripts/GameHandler.cs" Line="35" Column="1" />
+      <File FileName="Assets/Scripts/GameHandler.cs" Line="59" Column="18" />
       <File FileName="Assets/Scripts/GameAssets.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ScoreWindow.cs" Line="43" Column="53" />
-      <File FileName="Assets/Scripts/PauseWindow.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ScoreWindow.cs" />
+      <File FileName="Assets/Scripts/PauseWindow.cs" />
       <File FileName="Assets/Scripts/GameOverWindow.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/LevelGrid.cs" Line="97" Column="42" />
-      <File FileName="Assets/Scripts/SoundManager.cs" Line="26" Column="35" />
-      <File FileName="Assets/Scripts/MainMenuWindow.cs" Line="8" Column="1" />
-      <File FileName="Assets/Scripts/OnMouseButton.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameSound.cs" Line="34" Column="28" />
-      <File FileName="Assets/Scripts/Snake.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LevelGrid.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SoundManager.cs" />
+      <File FileName="Assets/Scripts/MainMenuWindow.cs" />
+      <File FileName="Assets/Scripts/OnMouseButton.cs" Line="44" Column="6" />
+      <File FileName="Assets/Scripts/GameSound.cs" />
+      <File FileName="Assets/Scripts/Snake.cs" Line="183" Column="14" />
+      <File FileName="Assets/Scripts/MessageWindow.cs" Line="9" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,7 +21,7 @@
           <Node name="Snake" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Snake.cs" selected="True" />
+                <Node name="MessageWindow.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -30,7 +31,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="58113375-a389-48f7-bc69-3429efeb9593" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="750d59ad-0f2c-4a95-82d6-eaddf38441a3" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

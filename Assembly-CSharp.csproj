@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Loader.cs" />
     <Compile Include="Assets\Scripts\LoaderCallBack.cs" />
     <Compile Include="Assets\Scripts\MainMenuWindow.cs" />
+    <Compile Include="Assets\Scripts\MessageWindow.cs" />
     <Compile Include="Assets\Scripts\OnMouseButton.cs" />
     <Compile Include="Assets\Scripts\PauseWindow.cs" />
     <Compile Include="Assets\Scripts\ScoreWindow.cs" />
