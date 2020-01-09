@@ -112,6 +112,7 @@ public class LevelGrid {
     public bool TrySnakeEatFood(Vector2Int snakeGridPosition) {
         // If snake took food1
         if (snakeGridPosition == foodGridPosition) {
+            GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObject);
             SpawnFood();
             GameHandler.AddScore();
@@ -119,6 +120,7 @@ public class LevelGrid {
         }
         // If snake took food2
         if (snakeGridPosition == foodGridPosition2) {
+            GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObject2);
             SpawnFood2();
             GameHandler.AddScore();
@@ -126,6 +128,7 @@ public class LevelGrid {
         }
         // If snake took food3
         if (snakeGridPosition == foodGridPosition3) {
+            GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObject3);
             SpawnFood3();
             GameHandler.AddScore();
@@ -133,6 +136,7 @@ public class LevelGrid {
         }
         // If snake took Bad food
         if (snakeGridPosition == badGridPosition) {
+            GameSound.PlayBadFoodSound();
             Object.Destroy(badGameObject);
             SpawnBad();
             GameHandler.ReduceScore();

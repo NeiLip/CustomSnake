@@ -122,8 +122,18 @@ public class GameHandler : MonoBehaviour {
 
                 if (curProgPart != 7 ) {
                     if (curProgPart != 8) {
+
+                        if (curProgPart > 8) {
+                            GameSound.PlayMessage(curProgPart - 3);
+                            MessageWindow.SetMessageText(curProgPart - 3);
+                        }
+                        else {
+                            GameSound.PlayMessage(curProgPart - 1);
+                            MessageWindow.SetMessageText(curProgPart - 1);
+                        }
+                       
                         ScoreWindow.showThougth(curProgPart - 1);
-                        MessageWindow.SetMessageText(curMessage);
+                      //  MessageWindow.SetMessageText(curMessage);
                         curMessage++;
                         PauseGameForMessage();
                     }

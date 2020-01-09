@@ -36,6 +36,8 @@ public class Snake : MonoBehaviour {
     public Sprite snakeHead2;
     public Sprite snakeHead3;
     public Sprite snakeHead4;
+    public Sprite snakeHead5;
+    public Sprite snakeHead6;
 
 
 
@@ -55,6 +57,8 @@ public class Snake : MonoBehaviour {
         else if (GameHandler.difficaltyIndex == 2) {
             gridMoveTimerMax = .13f;
         }
+
+        changeThemeSound = true;
 
         gridMoveTimer = gridMoveTimerMax;
         gridMoveDirection = Direction.Right;
@@ -82,17 +86,23 @@ public class Snake : MonoBehaviour {
     }
 
     private void SetHead() {
-        if (GameHandler.GetCurProgPart() < 4) {
+        if (GameHandler.GetCurProgPart() < 3) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead1;
         }
-        if (GameHandler.GetCurProgPart() >= 4 && GameHandler.GetCurProgPart() < 8) {
+        if (GameHandler.GetCurProgPart() >= 3 && GameHandler.GetCurProgPart() < 5) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead2;
         }
-        if (GameHandler.GetCurProgPart() >= 8 && GameHandler.GetCurProgPart() < 12) {
+        if (GameHandler.GetCurProgPart() >= 5 && GameHandler.GetCurProgPart() < 8) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead3;
         }
-        if (GameHandler.GetCurProgPart() >= 12) {
+        if (GameHandler.GetCurProgPart() >= 8 && GameHandler.GetCurProgPart() < 10) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead4;
+        }
+        if (GameHandler.GetCurProgPart() >= 10 && GameHandler.GetCurProgPart() < 13) {
+            snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead5;
+        }
+        if (GameHandler.GetCurProgPart() >= 13) {
+            snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead6;
         }
     }
 
@@ -120,28 +130,13 @@ public class Snake : MonoBehaviour {
     }
 
 
-    private bool soundChanged;
+    private bool changeThemeSound;
     private void HandleGridMovement() {
         gridMoveTimer += Time.deltaTime;
         if (gridMoveTimer >= gridMoveTimerMax) {
             gridMoveTimer -= gridMoveTimerMax;
 
-            // Set soundChanged to false so that on level 9 the sound will be changed
-            if (GameHandler.curProgPart == 8 || GameHandler.curProgPart == 10) {
-                soundChanged = false;
-            }
-            //Check BG Audio and changing it if needed
-            if (GameHandler.curProgPart == 9 && soundChanged == false) {
-                if (GameSound.sadIsPlayed()) {
-                    GameSound.StopSad();
-                    GameSound.PlayHappy();
-                }
-                else if (GameSound.happyIsPlayed()) {
-                    GameSound.StopHappy();
-                    GameSound.PlaySad();
-                }
-                soundChanged = true;
-            }
+         
 
             //Setting start size
             if (GameHandler.startSize > 0) {
@@ -180,6 +175,17 @@ public class Snake : MonoBehaviour {
                 snakeBodySize++;
                 CreateSnakeBodyPart();
                 SoundManager.PlaySound(SoundManager.Sound.SnakeEat);
+
+                if (GameHandler.curProgPart <= 10 && GameSound.happyIsPlayed()) {
+                    GameSound.StopHappy();
+                    GameSound.PlaySad();
+                }
+
+                else if (GameHandler.curProgPart > 10 && GameSound.sadIsPlayed()) {
+                    GameSound.StopSad();
+                    GameSound.PlayHappy();
+                }
+
             }
 
             if (snakeMovePositionList.Count >= snakeBodySize + 1) {
