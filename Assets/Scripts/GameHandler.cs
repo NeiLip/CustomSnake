@@ -27,10 +27,10 @@ public class GameHandler : MonoBehaviour {
     private static int length;
     public static int startSize;
 
-
-  
     private static int curMessage;
-  
+
+    private static bool lostGame;
+
   //  private static Text curMessageText;
 
 
@@ -54,7 +54,7 @@ public class GameHandler : MonoBehaviour {
 
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape) && !lostGame) {
             if (IsGamePause()) {
                 GameHandler.ResumeGame();
             }
@@ -70,6 +70,8 @@ public class GameHandler : MonoBehaviour {
         lengthIndex = InterFace.chosenLen;
         startSize = InterFace.chosenSize;
 
+        lostGame = false;
+
         score = 0;
         curProgPart = 1;
         numOfPrizesGot = 0;
@@ -78,15 +80,14 @@ public class GameHandler : MonoBehaviour {
 
         particleSys = GameObject.Find("MaxPartSys");
 
-        locationsY.Add(4);
-        locationsY.Add(6);
-        locationsY.Add(8);
-        locationsY.Add(10);
-        locationsY.Add(12);
-        locationsY.Add(14);
         locationsY.Add(16);
-
-
+        locationsY.Add(14);
+        locationsY.Add(12);
+        locationsY.Add(10);
+        locationsY.Add(8);
+        locationsY.Add(6);
+        locationsY.Add(4);
+        
         if (lengthIndex == 0) {
             length = 20;
         }
@@ -95,10 +96,7 @@ public class GameHandler : MonoBehaviour {
         }
         else if (lengthIndex == 2) {
             length = 30;
-        }
-
-
-       
+        } 
     }
 
     public static int GetScore() {
@@ -138,12 +136,6 @@ public class GameHandler : MonoBehaviour {
                         PauseGameForMessage();
                     }
                 }
-                //// Show emoji symbols on progress bar - CANCELED
-                //if (curProgPart == 1 || curProgPart == 3 || curProgPart == 5 || curProgPart == 11 || curProgPart == 14 || curProgPart == 18) { 
-                //    string strProgPartChild = "emoji" + curProgPart.ToString();
-                //    progPartChild = GameObject.Find(strProgPartChild);
-                //    progPartChild.GetComponent<SpriteRenderer>().enabled = true;
-                //}
 
                 curProgPart++;
 
@@ -167,51 +159,45 @@ public class GameHandler : MonoBehaviour {
                     ScoreWindow.hideThougth(curProgPart - 1);
                 }
             }
-
-            //// Show emoji symbols on progress bar - CANCELED
-            //if (curProgPart == 1 || curProgPart == 3 || curProgPart == 5 || curProgPart == 11 || curProgPart == 14 || curProgPart == 18) {
-            //             string strProgPartChild = "emoji" + curProgPart.ToString();
-            //             progPartChild = GameObject.Find(strProgPartChild);
-            //             progPartChild.GetComponent<SpriteRenderer>().enabled = false;
-            //         }
         }
         
     }
 
     private static List<Vector2Int> prizesLocations = new List<Vector2Int>();
     public static int numOfPrizesGot;
-    private static GameObject curPriseGameObject;
+    private static GameObject curPrizeGameObject;
     public static List<int> locationsY = new List<int>();
 
 
     // If snake ate prise, and there is place on shelf, GotProse is used
     // GotPrise gets prise number and place a sprite of it on the shelf
-    public static void GotPrise(int whichPrise) {
+    public static void PutPrizeOnShelf(int curPrize) {
 
+        if (numOfPrizesGot < 7) {
+            int rnd = Random.Range(0, locationsY.Count);
 
-        int rnd = Random.Range(0, locationsY.Count);
+            Vector2Int prisePosition = new Vector2Int(-3, locationsY[numOfPrizesGot]);
 
-        Vector2Int prisePosition = new Vector2Int(-3, locationsY[rnd]);
+            // locationsY.RemoveAt(0);
 
-        locationsY.RemoveAt(rnd);
+            if (curPrize == 1) {
+                curPrizeGameObject = new GameObject("Food", typeof(SpriteRenderer));
+                curPrizeGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
+                curPrizeGameObject.transform.position = new Vector3(prisePosition.x, prisePosition.y);
+            }
+            if (curPrize == 2) {
+                curPrizeGameObject = new GameObject("Food", typeof(SpriteRenderer));
+                curPrizeGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
+                curPrizeGameObject.transform.position = new Vector3(prisePosition.x, prisePosition.y);
+            }
+            if (curPrize == 3) {
+                curPrizeGameObject = new GameObject("Food", typeof(SpriteRenderer));
+                curPrizeGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite3;
+                curPrizeGameObject.transform.position = new Vector3(prisePosition.x, prisePosition.y);
+            }
 
-        if (whichPrise == 1) {
-            curPriseGameObject = new GameObject("Food", typeof(SpriteRenderer));
-            curPriseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
-            curPriseGameObject.transform.position = new Vector3(prisePosition.x, prisePosition.y);
+            numOfPrizesGot++;
         }
-        if (whichPrise == 2) {
-            curPriseGameObject = new GameObject("Food", typeof(SpriteRenderer));
-            curPriseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
-            curPriseGameObject.transform.position = new Vector3(prisePosition.x, prisePosition.y);
-        }
-        if (whichPrise == 3) {
-            curPriseGameObject = new GameObject("Food", typeof(SpriteRenderer));
-            curPriseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite3;
-            curPriseGameObject.transform.position = new Vector3(prisePosition.x, prisePosition.y);
-        }
-
-        numOfPrizesGot++;
     }
 
 
@@ -226,6 +212,7 @@ public class GameHandler : MonoBehaviour {
         return curProgPart;
     }
     public static void SnakeDied() {
+        lostGame = true;
         GameOverWindow.ShowStatic();
     }
 

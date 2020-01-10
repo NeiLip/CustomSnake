@@ -28,6 +28,8 @@ public class Snake : MonoBehaviour {
     private List<SnakeMovePosition> snakeMovePositionList;
     private List<SnakeBodyPart> snakeBodyPartList;
 
+
+    private int curChosenDif;
    
 
 
@@ -47,17 +49,19 @@ public class Snake : MonoBehaviour {
 
     private void Awake() {
         gridPosition = new Vector2Int(10, 10);
+        curChosenDif = GameHandler.difficaltyIndex;
 
-        if(GameHandler.difficaltyIndex == 0) {
-            gridMoveTimerMax = .2f;
+        if (curChosenDif == 0) {
+            gridMoveTimerMax = 0.2f;
         }
-        else if (GameHandler.difficaltyIndex == 1) {
-            gridMoveTimerMax = .3f;
+        else if (curChosenDif == 1) {
+            gridMoveTimerMax = 0.3f;
         }
-        else if (GameHandler.difficaltyIndex == 2) {
-            gridMoveTimerMax = .13f;
+        else if (curChosenDif == 2) {
+            gridMoveTimerMax = 0.25f;
         }
 
+        Debug.Log("gridMoveTimerMax: " + gridMoveTimerMax);
         changeThemeSound = true;
 
         gridMoveTimer = gridMoveTimerMax;
@@ -105,26 +109,28 @@ public class Snake : MonoBehaviour {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead6;
         }
     }
-
+    
     private void HandleInput() {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            if (gridMoveDirection != Direction.Down) {
-                gridMoveDirection = Direction.Up;
+        if (!PauseWindow.isPaused) {
+            if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                if (gridMoveDirection != Direction.Down) {
+                    gridMoveDirection = Direction.Up;
+                }
             }
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            if (gridMoveDirection != Direction.Up) {
-                gridMoveDirection = Direction.Down;
+            if (Input.GetKeyDown(KeyCode.DownArrow)) {
+                if (gridMoveDirection != Direction.Up) {
+                    gridMoveDirection = Direction.Down;
+                }
             }
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            if (gridMoveDirection != Direction.Right) {
-                gridMoveDirection = Direction.Left;
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                if (gridMoveDirection != Direction.Right) {
+                    gridMoveDirection = Direction.Left;
+                }
             }
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            if (gridMoveDirection != Direction.Left) {
-                gridMoveDirection = Direction.Right;
+            if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                if (gridMoveDirection != Direction.Left) {
+                    gridMoveDirection = Direction.Right;
+                }
             }
         }
     }
@@ -136,8 +142,8 @@ public class Snake : MonoBehaviour {
         if (gridMoveTimer >= gridMoveTimerMax) {
             gridMoveTimer -= gridMoveTimerMax;
 
-         
 
+           
             //Setting start size
             if (GameHandler.startSize > 0) {
                 snakeBodySize++;
