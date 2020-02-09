@@ -128,7 +128,8 @@ public class LevelGrid {
             GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObject);
             SpawnFood();
-            GameHandler.AddScore();
+            GameHandler.AddScore(10);
+            GameHandler.AddProgressBar();
             return true;
         }
         // If snake took food2
@@ -136,7 +137,8 @@ public class LevelGrid {
             GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObject2);
             SpawnFood2();
-            GameHandler.AddScore();
+            GameHandler.AddScore(10);
+            GameHandler.AddProgressBar();
             return true;
         }
         // If snake took food3
@@ -144,7 +146,8 @@ public class LevelGrid {
             GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObject3);
             SpawnFood3();
-            GameHandler.AddScore();
+            GameHandler.AddScore(10);
+            GameHandler.AddProgressBar();
             return true;
         }
         // If snake took Bad food1
@@ -152,7 +155,8 @@ public class LevelGrid {
             GameSound.PlayBadFoodSound();
             Object.Destroy(badGameObject1);
             SpawnBad1();
-            GameHandler.ReduceScore();
+            GameHandler.ReduceScore(10);
+            GameHandler.ReduceProgressBar();
             return true;
         }
         // If snake took Bad food2
@@ -160,7 +164,8 @@ public class LevelGrid {
             GameSound.PlayBadFoodSound();
             Object.Destroy(badGameObject2);
             SpawnBad2();
-            GameHandler.ReduceScore();
+            GameHandler.ReduceScore(10);
+            GameHandler.ReduceProgressBar();
             return true;
         }
 

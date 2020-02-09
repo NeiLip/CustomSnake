@@ -27,11 +27,11 @@ public class GameHandler : MonoBehaviour {
     private static int length;
     public static int startSize;
 
-    private static int curMessage;
+    
 
     private static bool lostGame;
 
-  //  private static Text curMessageText;
+  
 
 
     private void Awake() {
@@ -76,8 +76,6 @@ public class GameHandler : MonoBehaviour {
         curProgPart = 1;
         numOfPrizesGot = 0;
 
-        curMessage = 1;
-
         particleSys = GameObject.Find("MaxPartSys");
 
         locationsY.Add(16);
@@ -99,69 +97,72 @@ public class GameHandler : MonoBehaviour {
         } 
     }
 
+
+ 
+
+
     public static int GetScore() {
         return score;
     }
 
+    public static void ReduceScore(int sc) {
+        score -= sc;
+    }
+
+
+
+    public static void AddScore(int sc) {
+        score += sc;
+    }
+
+
     // Add Score and add Progress Bar if needed
-    public static void AddScore() {
-        score += 10;
-       
+    public static void AddProgressBar() {
+
+        Debug.Log("Score: " + score);
+
         //Progress bar is on max
-        if (curProgPart >= 18) {
+        if (curProgPart >= 16) {
             PlayParticleOnMax();
         }
 
         if (score % length == 0) {
-            if (curProgPart < 19) {
+            if (curProgPart < 17) {
+                
+
                 string strProgPart = "progPart" + curProgPart.ToString();
-                progPart = GameObject.Find(strProgPart);
+                progPart = GameObject.Find(curProgPart.ToString());
                 progPart.GetComponent<SpriteRenderer>().enabled = true;
 
-                if (curProgPart != 7 ) {
-                    if (curProgPart != 8) {
+                GameSound.PlayMessage(curProgPart - 1); //Playing audio message
+                MessageWindow.SetMessageText(curProgPart - 1); //Setting text message
 
-                        if (curProgPart > 8) {
-                            GameSound.PlayMessage(curProgPart - 3);
-                            MessageWindow.SetMessageText(curProgPart - 3);
-                        }
-                        else {
-                            GameSound.PlayMessage(curProgPart - 1);
-                            MessageWindow.SetMessageText(curProgPart - 1);
-                        }
-                       
-                        ScoreWindow.showThougth(curProgPart - 1);
-                      //  MessageWindow.SetMessageText(curMessage);
-                        curMessage++;
-                        PauseGameForMessage();
-                    }
-                }
+             //   ScoreWindow.showThougth(curProgPart - 1); //Showing text message
+                        
+                PauseGameForMessage();
+
 
                 curProgPart++;
-
-                
             }
         }
     }
+
 
     // Add Score and reduce Progress Bar if needed
-    public static void ReduceScore() {
-        score -= 10;
+    public static void ReduceProgressBar() {
         if (curProgPart > 1)  {
             curProgPart--;
-            curMessage--;
             string strProgPart = "progPart" + curProgPart.ToString();
-            progPart = GameObject.Find(strProgPart);
+            progPart = GameObject.Find(curProgPart.ToString());
             progPart.GetComponent<SpriteRenderer>().enabled = false;
 
-            if (curProgPart != 7) {
-                if (curProgPart != 8) {
-                    ScoreWindow.hideThougth(curProgPart - 1);
-                }
-            }
+         
+            //ScoreWindow.hideThougth(curProgPart - 1); //Text on progress bar. I dont use it
+         
         }
-        
     }
+        
+    
 
     private static List<Vector2Int> prizesLocations = new List<Vector2Int>();
     public static int numOfPrizesGot;
@@ -214,6 +215,11 @@ public class GameHandler : MonoBehaviour {
     public static void SnakeDied() {
         lostGame = true;
         GameOverWindow.ShowStatic();
+    }
+
+    public static void OnWin() { // I'm not using it yet
+        lostGame = true;
+        WinningWindow.ShowStatic();
     }
 
     public static void ResumeGame() {

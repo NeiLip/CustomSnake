@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\ScoreWindow.cs" />
     <Compile Include="Assets\Scripts\Snake.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\WinningWindow.cs" />
     <None Include="Assets\Fonts\Suez_One\OFL.txt" />
     <None Include="Assets\CodeMonkey\README.txt" />
     <Reference Include="Unity.Timeline.Editor">

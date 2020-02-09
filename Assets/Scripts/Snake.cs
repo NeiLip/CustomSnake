@@ -89,6 +89,10 @@ public class Snake : MonoBehaviour {
         SetHead();
     }
 
+    public void IncreaseBodSize() {
+        snakeBodySize++;
+    }
+
     private void SetHead() {
         if (GameHandler.GetCurProgPart() < 3) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead1;
@@ -182,12 +186,12 @@ public class Snake : MonoBehaviour {
                 CreateSnakeBodyPart();
                 SoundManager.PlaySound(SoundManager.Sound.SnakeEat);
 
-                if (GameHandler.curProgPart <= 10 && GameSound.happyIsPlayed()) {
+                if (GameHandler.curProgPart <= 8 && GameSound.happyIsPlayed()) {
                     GameSound.StopHappy();
                     GameSound.PlaySad();
                 }
 
-                else if (GameHandler.curProgPart > 10 && GameSound.sadIsPlayed()) {
+                else if (GameHandler.curProgPart > 8 && GameSound.sadIsPlayed()) {
                     GameSound.StopSad();
                     GameSound.PlayHappy();
                 }
@@ -214,7 +218,9 @@ public class Snake : MonoBehaviour {
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector) - 90);
 
-           
+
+            GameHandler.AddScore(1);
+            GameHandler.AddProgressBar();
         }
     }
 
@@ -258,7 +264,7 @@ public class Snake : MonoBehaviour {
 
         private SnakeMovePosition snakeMovePosition;
         private Transform transform;
-      //  private static float bodyPartAngle;
+    
 
 
         public SnakeBodyPart(int bodyIndex) {
