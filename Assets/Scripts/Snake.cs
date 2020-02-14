@@ -29,7 +29,7 @@ public class Snake : MonoBehaviour {
     private List<SnakeBodyPart> snakeBodyPartList;
 
 
-    private int curChosenDif;
+    private int updateSizeCounter;
    
 
 
@@ -49,17 +49,20 @@ public class Snake : MonoBehaviour {
 
     private void Awake() {
         gridPosition = new Vector2Int(10, 10);
-        curChosenDif = GameHandler.difficaltyIndex;
 
-        if (curChosenDif == 0) {
-            gridMoveTimerMax = 0.2f;
-        }
-        else if (curChosenDif == 1) {
-            gridMoveTimerMax = 0.3f;
-        }
-        else if (curChosenDif == 2) {
-            gridMoveTimerMax = 0.25f;
-        }
+        //curChosenDif = GameHandler.difficaltyIndex;
+        //if (curChosenDif == 0) {
+        //    gridMoveTimerMax = 0.3f;
+        //}
+        //else if (curChosenDif == 1) {
+        //    gridMoveTimerMax = 0.25f;
+        //}
+        //else if (curChosenDif == 2) {
+        //    gridMoveTimerMax = 0.2f;
+        //}
+
+        gridMoveTimerMax = 0.3f;
+        updateSizeCounter = 0;
 
         Debug.Log("gridMoveTimerMax: " + gridMoveTimerMax);
         changeThemeSound = true;
@@ -93,24 +96,36 @@ public class Snake : MonoBehaviour {
         snakeBodySize++;
     }
 
+    public void SetTimerMax(float max) {
+        gridMoveTimerMax = max;
+    }
+
+
+    // Changing head and changing gridMoveTimerMax
     private void SetHead() {
         if (GameHandler.GetCurProgPart() < 3) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead1;
+            SetTimerMax(0.3f);
         }
         if (GameHandler.GetCurProgPart() >= 3 && GameHandler.GetCurProgPart() < 5) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead2;
+            SetTimerMax(0.27f);
         }
         if (GameHandler.GetCurProgPart() >= 5 && GameHandler.GetCurProgPart() < 8) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead3;
+            SetTimerMax(0.23f);
         }
         if (GameHandler.GetCurProgPart() >= 8 && GameHandler.GetCurProgPart() < 10) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead4;
+            SetTimerMax(0.2f);
         }
         if (GameHandler.GetCurProgPart() >= 10 && GameHandler.GetCurProgPart() < 13) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead5;
+            SetTimerMax(0.17f);
         }
         if (GameHandler.GetCurProgPart() >= 13) {
             snakeObj.GetComponent<SpriteRenderer>().sprite = snakeHead6;
+            SetTimerMax(0.15f);
         }
     }
     
@@ -198,6 +213,13 @@ public class Snake : MonoBehaviour {
 
             }
 
+            updateSizeCounter++;
+            if (updateSizeCounter >= 10) {
+                snakeBodySize++;
+                CreateSnakeBodyPart();
+                updateSizeCounter = 0;
+            }
+
             if (snakeMovePositionList.Count >= snakeBodySize + 1) {
                 snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
             }
@@ -218,6 +240,7 @@ public class Snake : MonoBehaviour {
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector) - 90);
 
+           
 
             GameHandler.AddScore(1);
             GameHandler.AddProgressBar();

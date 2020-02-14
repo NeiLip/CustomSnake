@@ -21,7 +21,9 @@ public class SoundManager : MonoBehaviour
         audioSource.PlayOneShot(GetAudioClip(sound));
     }
 
-  
+
+
+
 
     private static AudioClip GetAudioClip(Sound sound) {
         foreach (GameAssets.SoundAudioClip soundAudioClip in GameAssets.i.soundAudioClipsArray) {

@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class InterFace : MonoBehaviour
 {
 
-    public Dropdown difDrop;
+    
     public Dropdown lenDrop;
     public Dropdown startSizeDrop;
 
 
-    public static int chosenDif;
+    
     public static int chosenLen;
     public static int chosenSize;
 
@@ -20,7 +20,6 @@ public class InterFace : MonoBehaviour
 
 
     private void Awake() {
-        difDrop.value = chosenDif;
         lenDrop.value = chosenLen;
         startSizeDrop.value = chosenSize;
 
@@ -52,7 +51,6 @@ public class InterFace : MonoBehaviour
     }
 
     private void Update() {
-        chosenDif = difDrop.value;
         chosenLen = lenDrop.value;
         chosenSize = startSizeDrop.value;
 

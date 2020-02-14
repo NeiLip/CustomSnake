@@ -6,6 +6,7 @@ using CodeMonkey;
 using CodeMonkey.Utils;
 using System.IO;
 using UnityEngine.UI;
+using System.Runtime.CompilerServices;
 
 public class GameHandler : MonoBehaviour {
      
@@ -66,7 +67,9 @@ public class GameHandler : MonoBehaviour {
     }
 
     private static void InitializeStatic() {
-        difficaltyIndex = InterFace.chosenDif;
+
+
+        
         lengthIndex = InterFace.chosenLen;
         startSize = InterFace.chosenSize;
 
@@ -87,13 +90,13 @@ public class GameHandler : MonoBehaviour {
         locationsY.Add(4);
         
         if (lengthIndex == 0) {
-            length = 20;
+            length = 25;
         }
         else if (lengthIndex == 1) {
-            length = 10;
+            length = 35;
         }
         else if (lengthIndex == 2) {
-            length = 30;
+            length = 45;
         } 
     }
 
@@ -121,16 +124,11 @@ public class GameHandler : MonoBehaviour {
 
         Debug.Log("Score: " + score);
 
-        //Progress bar is on max
-        if (curProgPart >= 16) {
-            PlayParticleOnMax();
-        }
-
-        if (score % length == 0) {
+  
+        if (score > length) {
             if (curProgPart < 17) {
                 
 
-                string strProgPart = "progPart" + curProgPart.ToString();
                 progPart = GameObject.Find(curProgPart.ToString());
                 progPart.GetComponent<SpriteRenderer>().enabled = true;
 
@@ -141,9 +139,10 @@ public class GameHandler : MonoBehaviour {
                         
                 PauseGameForMessage();
 
-
+                
                 curProgPart++;
             }
+            score = 0;
         }
     }
 
@@ -152,7 +151,6 @@ public class GameHandler : MonoBehaviour {
     public static void ReduceProgressBar() {
         if (curProgPart > 1)  {
             curProgPart--;
-            string strProgPart = "progPart" + curProgPart.ToString();
             progPart = GameObject.Find(curProgPart.ToString());
             progPart.GetComponent<SpriteRenderer>().enabled = false;
 
@@ -199,13 +197,6 @@ public class GameHandler : MonoBehaviour {
 
             numOfPrizesGot++;
         }
-    }
-
-
-    public static void PlayParticleOnMax() {
-        ParticleSystem currPS = particleSys.GetComponent<ParticleSystem>();
-        
-        currPS.Play();
     }
 
   
