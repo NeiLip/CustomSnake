@@ -10,20 +10,11 @@ public class LevelGrid {
     private Vector2Int[] foodGridPositionArr;
     private GameObject[] foodGameObjectArr;
 
-    private Vector2Int foodGridPosition;
-    private GameObject foodGameObject;
     private int foodTimer1;
-    private Vector2Int foodGridPosition2;
-    private GameObject foodGameObject2;
-    private Vector2Int foodGridPosition3;
-    private GameObject foodGameObject3;
 
     private Vector2Int[] badFoodGridPositionArr;
     private GameObject[] badFoodGameObjectArr;
-    private Vector2Int badGridPosition1;
-    private GameObject badGameObject1;
-    private Vector2Int badGridPosition2;
-    private GameObject badGameObject2;
+
     private Vector2Int priseGridPosition;
     private GameObject priseGameObject;
     private int ifSpawnPrise;
@@ -45,6 +36,7 @@ public class LevelGrid {
         badFoodGameObjectArr = new GameObject[2];
 
         ifSpawnPrise = 15;
+        foodTimer1 = 1;
         this.snake = snake;
         SpawnFood();
        // SpawnFood2();
@@ -74,16 +66,7 @@ public class LevelGrid {
         foodGameObjectArr[1].transform.position = new Vector3(foodGridPositionArr[1].x, foodGridPositionArr[1].y);
 
     }
-    private void SpawnFood3() {
-        do {
-            foodGridPositionArr[2] = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
-        } while (snake.GetFullSnakeGridPositionList().IndexOf(foodGridPositionArr[2]) != -1);
 
-        foodGameObjectArr[2] = new GameObject("Food", typeof(SpriteRenderer));
-        foodGameObjectArr[2].GetComponent<SpriteRenderer>().sprite = GameAssets.i.foodSprite;
-        foodGameObjectArr[2].transform.position = new Vector3(foodGridPositionArr[2].x, foodGridPositionArr[2].y);
-
-    }
 
     private void SpawnBad1() {
         do {
@@ -153,15 +136,7 @@ public class LevelGrid {
             GameHandler.AddProgressBar();
             return true;
         }
-        // If snake took food2
-        if (snakeGridPosition == foodGridPositionArr[2]) {
-            GameSound.PlayGoodFoodSound();
-            Object.Destroy(foodGameObjectArr[2]);
-            SpawnFood3();
-            GameHandler.AddScore(10);
-            GameHandler.AddProgressBar();
-            return true;
-        }
+
         // If snake took Bad food0
         if (snakeGridPosition == badFoodGridPositionArr[0]) {
             GameSound.PlayBadFoodSound();
@@ -183,23 +158,23 @@ public class LevelGrid {
         ////////////////////////////////////////////
         //     Prize handler   -    should be summoned after victory //
 
-        ////Destroy and Spawn prize
-        //ifSpawnPrise--;
-        //if (ifSpawnPrise <= 0) {
-        //    Object.Destroy(priseGameObject);
-        //    SpawnPrise();
-        //    ifSpawnPrise = 60; //Spawn Time. Maybe In the future change it to a varaible
-        //}
+        //Destroy and Spawn prize
+        ifSpawnPrise--;
+        if (ifSpawnPrise <= 0) {
+            Object.Destroy(priseGameObject);
+            SpawnPrise();
+            ifSpawnPrise = 60; //Spawn Time. Maybe In the future change it to a varaible
+        }
 
-        ////If took Prise
-        //if (snakeGridPosition == priseGridPosition && priseGameObject != null) {
-        //    Object.Destroy(priseGameObject);
-            
-        //    GameHandler.PutPrizeOnShelf(lastPrise);
-            
-            
-        //    return true;
-        //}
+        //If took Prise
+        if (snakeGridPosition == priseGridPosition && priseGameObject != null) {
+            Object.Destroy(priseGameObject);
+
+            GameHandler.PutPrizeOnShelf(lastPrise);
+
+
+            return true;
+        }
 
         return false;//Ate nothing
 
