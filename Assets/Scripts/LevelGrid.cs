@@ -9,17 +9,19 @@ public class LevelGrid {
 
     private Vector2Int[] foodGridPositionArr;
     private GameObject[] foodGameObjectArr;
-
-    private int foodTimer1;
+    private int[] foodTimerArr;
+    
 
     private Vector2Int[] badFoodGridPositionArr;
     private GameObject[] badFoodGameObjectArr;
+    private int[] badFoodTimerArr;
 
-    private Vector2Int priseGridPosition;
-    private GameObject priseGameObject;
-    private int ifSpawnPrise;
+    private bool stopSpawningFoods;
+    private Vector2Int[] prizeGridPositionArr;
+    private GameObject[] prizeGameObjectArr;
+  
 
-    private static int lastPrise;
+    private static int lastPrize;
     private int width;
     private int height;
     private Snake snake;
@@ -30,23 +32,36 @@ public class LevelGrid {
     }
 
     public void Setup(Snake snake) {
-        foodGridPositionArr = new Vector2Int[3];
-        foodGameObjectArr = new GameObject[3];
+        foodGridPositionArr = new Vector2Int[2];
+        foodGameObjectArr = new GameObject[2];
+
         badFoodGridPositionArr = new Vector2Int[2];
         badFoodGameObjectArr = new GameObject[2];
 
-        ifSpawnPrise = 15;
-        foodTimer1 = 1;
+        prizeGridPositionArr = new Vector2Int[2];
+        prizeGameObjectArr = new GameObject[2];
+
+        foodTimerArr = new int[2];
+        badFoodTimerArr = new int[2];
+
+        stopSpawningFoods = false;
+
+
         this.snake = snake;
-        SpawnFood();
-       // SpawnFood2();
-        //SpawnFood3();
+        SpawnFood0();
+        SpawnFood1();
+        foodTimerArr[0] = 45;
+        foodTimerArr[1] = 15;
+
+        SpawnBad0();
         SpawnBad1();
-        SpawnBad2();
+
+        badFoodTimerArr[0] = 30;
+        badFoodTimerArr[1] = 20;
 
     }
 
-    private void SpawnFood() {
+    private void SpawnFood0() {
         do {
             foodGridPositionArr[0] = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         } while (snake.GetFullSnakeGridPositionList().IndexOf(foodGridPositionArr[0]) != -1);
@@ -56,7 +71,7 @@ public class LevelGrid {
         foodGameObjectArr[0].transform.position = new Vector3(foodGridPositionArr[0].x, foodGridPositionArr[0].y);
     }
 
-    private void SpawnFood2() {
+    private void SpawnFood1() {
         do {
             foodGridPositionArr[1] = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         } while (snake.GetFullSnakeGridPositionList().IndexOf(foodGridPositionArr[1]) != -1);
@@ -68,7 +83,7 @@ public class LevelGrid {
     }
 
 
-    private void SpawnBad1() {
+    private void SpawnBad0() {
         do {
             badFoodGridPositionArr[0] = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         } while (snake.GetFullSnakeGridPositionList().IndexOf(badFoodGridPositionArr[0]) != -1);
@@ -78,7 +93,7 @@ public class LevelGrid {
         badFoodGameObjectArr[0].transform.position = new Vector3(badFoodGridPositionArr[0].x, badFoodGridPositionArr[0].y);
 
     }
-    private void SpawnBad2() {
+    private void SpawnBad1() {
         do {
             badFoodGridPositionArr[1] = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         } while (snake.GetFullSnakeGridPositionList().IndexOf(badFoodGridPositionArr[1]) != -1);
@@ -95,25 +110,46 @@ public class LevelGrid {
     //                  I suggest to put the N prizes sprites in GameAssets and than
     //                  choose here randomly.
     //                  Then I'll choose whice priseSprite to use
-    private void SpawnPrise() {
+    private void SpawnPrise0() {
         do {
-            priseGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
-        } while (snake.GetFullSnakeGridPositionList().IndexOf(priseGridPosition) != -1);
+            prizeGridPositionArr[0] = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+        } while (snake.GetFullSnakeGridPositionList().IndexOf(prizeGridPositionArr[0]) != -1);
 
-        priseGameObject = new GameObject("Food", typeof(SpriteRenderer));
+        prizeGameObjectArr[0] = new GameObject("Food", typeof(SpriteRenderer));
 
         int curRand = Random.Range(1, 4);
-        lastPrise = curRand;
+        lastPrize = curRand;
         if (curRand == 1) {
-            priseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
+            prizeGameObjectArr[0].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
         }
         else if (curRand == 2) {
-            priseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
+            prizeGameObjectArr[0].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
         }
         else if (curRand == 3) {
-            priseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite3;
+            prizeGameObjectArr[0].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite3;
         }
-        priseGameObject.transform.position = new Vector3(priseGridPosition.x, priseGridPosition.y);
+        prizeGameObjectArr[0].transform.position = new Vector3(prizeGridPositionArr[0].x, prizeGridPositionArr[0].y);
+
+    }
+    private void SpawnPrise1() {
+        do {
+            prizeGridPositionArr[1] = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+        } while (snake.GetFullSnakeGridPositionList().IndexOf(prizeGridPositionArr[1]) != -1);
+
+        prizeGameObjectArr[1] = new GameObject("Food", typeof(SpriteRenderer));
+
+        int curRand = Random.Range(1, 4);
+        lastPrize = curRand;
+        if (curRand == 1) {
+            prizeGameObjectArr[1].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
+        }
+        else if (curRand == 2) {
+            prizeGameObjectArr[1].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
+        }
+        else if (curRand == 3) {
+            prizeGameObjectArr[1].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite3;
+        }
+        prizeGameObjectArr[1].transform.position = new Vector3(prizeGridPositionArr[1].x, prizeGridPositionArr[1].y);
 
     }
 
@@ -122,57 +158,75 @@ public class LevelGrid {
         if (snakeGridPosition == foodGridPositionArr[0]) {
             GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObjectArr[0]);
-            SpawnFood();
+            SpawnFood0();
             GameHandler.AddScore(10);
             GameHandler.AddProgressBar();
             return true;
         }
+        foodTimerArr[0]--;
+        if (foodTimerArr[0] <= 0 && (!stopSpawningFoods)) { //Relocate food0
+            Object.Destroy(foodGameObjectArr[0]);
+            SpawnFood0();
+            foodTimerArr[0] = 31;
+        }
+
+
         // If snake took food1
         if (snakeGridPosition == foodGridPositionArr[1]) {
             GameSound.PlayGoodFoodSound();
             Object.Destroy(foodGameObjectArr[1]);
-            SpawnFood2();
+            SpawnFood1();
             GameHandler.AddScore(10);
             GameHandler.AddProgressBar();
             return true;
+        }
+
+        foodTimerArr[1]--;
+        if (foodTimerArr[1] <= 0 && (!stopSpawningFoods)) {  //Relocate food1
+            Object.Destroy(foodGameObjectArr[1]);
+            SpawnFood1();
+            foodTimerArr[1] = 22;
         }
 
         // If snake took Bad food0
         if (snakeGridPosition == badFoodGridPositionArr[0]) {
             GameSound.PlayBadFoodSound();
             Object.Destroy(badFoodGameObjectArr[0]);
+            SpawnBad0();
+            GameHandler.ReduceScore(10);
+            GameHandler.ReduceProgressBar();
+            return true;
+        }
+        badFoodTimerArr[0]--;
+        if (badFoodTimerArr[0] <= 0 && (!stopSpawningFoods)) {//Relocate bad food0
+            Object.Destroy(badFoodGameObjectArr[0]);
+            SpawnBad0();
+            badFoodTimerArr[0] = 28;
+        }
+
+        // If snake took Bad food1
+        if (snakeGridPosition == badFoodGridPositionArr[1]) {
+            GameSound.PlayBadFoodSound();
+            Object.Destroy(badFoodGameObjectArr[1]);
             SpawnBad1();
             GameHandler.ReduceScore(10);
             GameHandler.ReduceProgressBar();
             return true;
         }
-        // If snake took Bad food1
-        if (snakeGridPosition == badFoodGridPositionArr[1]) {
-            GameSound.PlayBadFoodSound();
+
+        badFoodTimerArr[1]--;
+        if (badFoodTimerArr[1] <= 0 && (!stopSpawningFoods)) {//Relocate bad food1
             Object.Destroy(badFoodGameObjectArr[1]);
-            SpawnBad2();
-            GameHandler.ReduceScore(10);
-            GameHandler.ReduceProgressBar();
-            return true;
+            SpawnBad1();
+            badFoodTimerArr[1] = 16;
         }
         ////////////////////////////////////////////
-        //     Prize handler   -    should be summoned after victory //
+        //     Prize handler  //
+        //If took Prise0
+        if (snakeGridPosition == prizeGridPositionArr[0]) {
+            Object.Destroy(prizeGameObjectArr[0]);
 
-        //Destroy and Spawn prize
-        ifSpawnPrise--;
-        if (ifSpawnPrise <= 0) {
-            Object.Destroy(priseGameObject);
-            SpawnPrise();
-            ifSpawnPrise = 60; //Spawn Time. Maybe In the future change it to a varaible
-        }
-
-        //If took Prise
-        if (snakeGridPosition == priseGridPosition && priseGameObject != null) {
-            Object.Destroy(priseGameObject);
-
-            GameHandler.PutPrizeOnShelf(lastPrise);
-
-
+        //    GameHandler.PutPrizeOnShelf(lastPrize);
             return true;
         }
 
@@ -180,8 +234,20 @@ public class LevelGrid {
 
     }
 
-    public int GetFoodTimer1() {
-        return foodTimer1;
+    //TODO: destroys all foods and bad foods on field
+    public void DestroyAll() {
+        stopSpawningFoods = true;
+        for (int i = 0; i < 2; i++) {
+            Object.Destroy(foodGameObjectArr[i]);
+            Object.Destroy(badFoodGameObjectArr[i]);
+            foodGridPositionArr[i].Set(-1, -1);
+            badFoodGridPositionArr[i].Set(-1, -1);
+        }
+    }
+    //TODO: Spawns final prizes
+    public void SpawnPrizes() {
+        SpawnPrise0();
+        SpawnPrise1();
     }
 
     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {

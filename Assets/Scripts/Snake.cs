@@ -50,17 +50,6 @@ public class Snake : MonoBehaviour {
     private void Awake() {
         gridPosition = new Vector2Int(10, 10);
 
-        //curChosenDif = GameHandler.difficaltyIndex;
-        //if (curChosenDif == 0) {
-        //    gridMoveTimerMax = 0.3f;
-        //}
-        //else if (curChosenDif == 1) {
-        //    gridMoveTimerMax = 0.25f;
-        //}
-        //else if (curChosenDif == 2) {
-        //    gridMoveTimerMax = 0.2f;
-        //}
-
         gridMoveTimerMax = 0.3f;
         updateSizeCounter = 0;
 
@@ -209,6 +198,13 @@ public class Snake : MonoBehaviour {
                 else if (GameHandler.curProgPart > 8 && GameSound.sadIsPlayed()) {
                     GameSound.StopSad();
                     GameSound.PlayHappy();
+                }
+
+
+                // On Win - Clear evrything on field (do funtion in levelgrid), then summon final prizes
+                if (GameHandler.curProgPart >= 16) {
+                    levelGrid.DestroyAll();
+                    levelGrid.SpawnPrizes();
                 }
 
             }
