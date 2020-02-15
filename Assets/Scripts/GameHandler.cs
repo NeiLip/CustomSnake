@@ -55,12 +55,14 @@ public class GameHandler : MonoBehaviour {
 
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !lostGame) {
-            if (IsGamePause()) {
-                GameHandler.ResumeGame();
-            }
-            else {
-                GameHandler.PauseGame();
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (!lostGame) {
+                if (IsGamePause()) {
+                    GameHandler.ResumeGame();
+                }
+                else {
+                    GameHandler.PauseGame();
+                }
             }
         }
 
