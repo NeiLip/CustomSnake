@@ -116,18 +116,7 @@ public class LevelGrid {
         } while (snake.GetFullSnakeGridPositionList().IndexOf(prizeGridPositionArr[0]) != -1);
 
         prizeGameObjectArr[0] = new GameObject("Food", typeof(SpriteRenderer));
-
-        int curRand = Random.Range(1, 4);
-        lastPrize = curRand;
-        if (curRand == 1) {
-            prizeGameObjectArr[0].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
-        }
-        else if (curRand == 2) {
-            prizeGameObjectArr[0].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
-        }
-        else if (curRand == 3) {
-            prizeGameObjectArr[0].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite3;
-        }
+        prizeGameObjectArr[0].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
         prizeGameObjectArr[0].transform.position = new Vector3(prizeGridPositionArr[0].x, prizeGridPositionArr[0].y);
 
     }
@@ -137,18 +126,7 @@ public class LevelGrid {
         } while (snake.GetFullSnakeGridPositionList().IndexOf(prizeGridPositionArr[1]) != -1);
 
         prizeGameObjectArr[1] = new GameObject("Food", typeof(SpriteRenderer));
-
-        int curRand = Random.Range(1, 4);
-        lastPrize = curRand;
-        if (curRand == 1) {
-            prizeGameObjectArr[1].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite1;
-        }
-        else if (curRand == 2) {
-            prizeGameObjectArr[1].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
-        }
-        else if (curRand == 3) {
-            prizeGameObjectArr[1].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite3;
-        }
+        prizeGameObjectArr[1].GetComponent<SpriteRenderer>().sprite = GameAssets.i.priseSprite2;
         prizeGameObjectArr[1].transform.position = new Vector3(prizeGridPositionArr[1].x, prizeGridPositionArr[1].y);
 
     }
@@ -225,8 +203,13 @@ public class LevelGrid {
         //If took Prise0
         if (snakeGridPosition == prizeGridPositionArr[0]) {
             Object.Destroy(prizeGameObjectArr[0]);
-
-        //    GameHandler.PutPrizeOnShelf(lastPrize);
+            GameHandler.prizesLeftToWin--;
+            return true;
+        }
+        //If took Prise1
+        if (snakeGridPosition == prizeGridPositionArr[1]) {
+            Object.Destroy(prizeGameObjectArr[1]);
+            GameHandler.prizesLeftToWin--;
             return true;
         }
 

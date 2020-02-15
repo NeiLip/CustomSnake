@@ -28,7 +28,11 @@ public class GameHandler : MonoBehaviour {
     private static int length;
     public static int startSize;
 
-    
+    public static int prizesLeftToWin;
+    public static bool isPrizesSpwaned;
+
+
+
 
     private static bool lostGame;
 
@@ -76,10 +80,12 @@ public class GameHandler : MonoBehaviour {
         startSize = InterFace.chosenSize;
 
         lostGame = false;
+        isPrizesSpwaned = false;
 
         score = 0;
         curProgPart = 1;
         numOfPrizesGot = 0;
+        prizesLeftToWin = 2;
 
         particleSys = GameObject.Find("MaxPartSys");
 

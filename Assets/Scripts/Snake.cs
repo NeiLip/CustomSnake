@@ -201,12 +201,19 @@ public class Snake : MonoBehaviour {
                 }
 
 
-                // On Win - Clear evrything on field (do funtion in levelgrid), then summon final prizes
-                if (GameHandler.curProgPart >= 16) {
-                    levelGrid.DestroyAll();
-                    levelGrid.SpawnPrizes();
+               if (GameHandler.prizesLeftToWin <= 0) {
+                    state = State.Dead;
+                    GameHandler.OnWin();
+                    SoundManager.PlaySound(SoundManager.Sound.SnakeDie);//TODO Change it to winning music
                 }
+           
 
+            }
+            // On Win - Clear evrything on field (do funtion in levelgrid), then summon final prizes
+            if (GameHandler.curProgPart > 16 && !GameHandler.isPrizesSpwaned) {
+                GameHandler.isPrizesSpwaned = true;
+                levelGrid.DestroyAll();
+                levelGrid.SpawnPrizes();
             }
 
             updateSizeCounter++;
