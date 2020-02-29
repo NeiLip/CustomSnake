@@ -11,17 +11,9 @@ public class MainMenuWindow : MonoBehaviour {
     private enum Sub {
         Main,
         HowToPlay,
+        About,
     }
 
-    private IEnumerator MyCoroutine(Loader.Scene scene) {
-
-        SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
-        Debug.Log("First One");
-        // yield return new WaitForSeconds(.15f);
-        yield return null;
-        Debug.Log("Second One");
-        Loader.Load(scene);
-    }
 
     private void Awake() {
 
@@ -30,13 +22,16 @@ public class MainMenuWindow : MonoBehaviour {
         //Placing Menu window and HowToPlay window at 0,0
         transform.Find("howToPlaySub").GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         transform.Find("mainSub").GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        transform.Find("aboutSub").GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
         //When Clicing Play on main menu
         transform.Find("mainSub").Find("playBtn").GetComponent<Button_UI>().ClickFunc = () =>
         {
             
-            StartCoroutine(MyCoroutine(Loader.Scene.GameScene));
-            
+     
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
+            Loader.Load(Loader.Scene.GameScene);
+
         };
 
         //When Clicing HowToPlay on main menu
@@ -44,6 +39,12 @@ public class MainMenuWindow : MonoBehaviour {
         {
             SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
             ShowSub(Sub.HowToPlay);
+        };
+        //When Clicing About on main menu
+        transform.Find("mainSub").Find("aboutBtn").GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
+            ShowSub(Sub.About);
         };
 
         //When Clicing Quit on main menu
@@ -53,8 +54,14 @@ public class MainMenuWindow : MonoBehaviour {
             Application.Quit();
         };
 
-        //When Clicing HowToPlay on HowToPlay menu
+        //When Clicing BackToManu on HowToPlay menu
         transform.Find("howToPlaySub").Find("backBtn").GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
+            ShowSub(Sub.Main);
+        };
+        //When Clicing BackToManu on AboutSub menu
+        transform.Find("aboutSub").Find("backBtn").GetComponent<Button_UI>().ClickFunc = () =>
         {
             SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
             ShowSub(Sub.Main);
@@ -63,7 +70,9 @@ public class MainMenuWindow : MonoBehaviour {
         //When Clicing Interface on main menu
         transform.Find("mainSub").Find("interfaceBtn").GetComponent<Button_UI>().ClickFunc = () =>
         {
-            StartCoroutine(MyCoroutine(Loader.Scene.Interface));
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
+            Loader.Load(Loader.Scene.Interface);
+          
         };
 
 
@@ -74,6 +83,7 @@ public class MainMenuWindow : MonoBehaviour {
     private void ShowSub(Sub sub) {
         transform.Find("mainSub").gameObject.SetActive(false);
         transform.Find("howToPlaySub").gameObject.SetActive(false);
+        transform.Find("aboutSub").gameObject.SetActive(false);
 
         switch (sub) {
             case Sub.Main:
@@ -82,7 +92,11 @@ public class MainMenuWindow : MonoBehaviour {
             case Sub.HowToPlay:
                 transform.Find("howToPlaySub").gameObject.SetActive(true);
                 break;
+            case Sub.About:
+                transform.Find("aboutSub").gameObject.SetActive(true);
+                break;
         }
+
 
     }
 }

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: a8e5f93bc51db4166b59211087bb130e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kartiv
+  fontNames:
+  - Kartiv
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 923e26b4e52614124a8a8741cbd72bbc, type: 3}
+  - {fileID: 12800000, guid: 0226bf19c9b304353b6ea3c736469813, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

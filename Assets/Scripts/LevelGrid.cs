@@ -131,6 +131,7 @@ public class LevelGrid {
 
     }
 
+
     public bool TrySnakeEatFood(Vector2Int snakeGridPosition) {
         // If snake took food0
         if (snakeGridPosition == foodGridPositionArr[0]) {
@@ -139,6 +140,7 @@ public class LevelGrid {
             SpawnFood0();
             GameHandler.AddScore(10);
             GameHandler.AddProgressBar();
+            GameHandler.SetProgressImage("Good");
             return true;
         }
         foodTimerArr[0]--;
@@ -156,6 +158,7 @@ public class LevelGrid {
             SpawnFood1();
             GameHandler.AddScore(10);
             GameHandler.AddProgressBar();
+            GameHandler.SetProgressImage("Good");
             return true;
         }
 
@@ -173,6 +176,7 @@ public class LevelGrid {
             SpawnBad0();
             GameHandler.ReduceScore(10);
             GameHandler.ReduceProgressBar();
+            GameHandler.SetProgressImage("Bad");
             return true;
         }
         badFoodTimerArr[0]--;
@@ -189,6 +193,7 @@ public class LevelGrid {
             SpawnBad1();
             GameHandler.ReduceScore(10);
             GameHandler.ReduceProgressBar();
+            GameHandler.SetProgressImage("Bad");
             return true;
         }
 
@@ -217,7 +222,7 @@ public class LevelGrid {
 
     }
 
-    //TODO: destroys all foods and bad foods on field
+    //destroys all foods and bad foods on field
     public void DestroyAll() {
         stopSpawningFoods = true;
         for (int i = 0; i < 2; i++) {
@@ -227,7 +232,7 @@ public class LevelGrid {
             badFoodGridPositionArr[i].Set(-1, -1);
         }
     }
-    //TODO: Spawns final prizes
+    //Spawns final prizes
     public void SpawnPrizes() {
         SpawnPrise0();
         SpawnPrise1();

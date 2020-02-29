@@ -151,7 +151,16 @@ public class Snake : MonoBehaviour {
             gridMoveTimer -= gridMoveTimerMax;
 
 
-           
+            if (!GameHandler.isPrizesSpwaned) {
+                GameHandler.SetProgressTimer();
+            }
+            else {
+                GameHandler.SetProgressTimerToMax();
+            }
+         
+
+
+
             //Setting start size
             if (GameHandler.startSize > 0) {
                 snakeBodySize++;

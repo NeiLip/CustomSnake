@@ -25,12 +25,22 @@ public class GameHandler : MonoBehaviour {
 
     public static int difficaltyIndex;
     public static int lengthIndex;
-    private static int length;
+    public static int length;
     public static int startSize;
 
     public static int prizesLeftToWin;
     public static bool isPrizesSpwaned;
 
+    public static GameObject SliderForProgressTimer;
+    public static Slider OURSLIDER;
+    public static GameObject SliderImage;
+
+    public static GameObject SliderGoodImage;
+    public static GameObject SliderRegImage;
+    public static GameObject SliderBadImage;
+
+    public static ParticleSystem GoodPS;
+    public static ParticleSystem BadPS;
 
 
 
@@ -44,7 +54,7 @@ public class GameHandler : MonoBehaviour {
         InitializeStatic();
 
 
-        GameHandler.ResumeGame();
+        ResumeGame();
     }
 
     private void Start() {
@@ -62,11 +72,17 @@ public class GameHandler : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (!lostGame) {
                 if (IsGamePause()) {
-                    GameHandler.ResumeGame();
+                    ResumeGame();
                 }
                 else {
-                    GameHandler.PauseGame();
+                    PauseGame();
                 }
+            }
+        }
+
+        if (!lostGame) {
+            if (!GoodPS.isPlaying && !BadPS.isPlaying) {
+                SliderImage.GetComponent<Image>().sprite = SliderRegImage.GetComponent<SpriteRenderer>().sprite;
             }
         }
 
@@ -86,9 +102,19 @@ public class GameHandler : MonoBehaviour {
         curProgPart = 1;
         numOfPrizesGot = 0;
         prizesLeftToWin = 2;
-
+        
         particleSys = GameObject.Find("MaxPartSys");
 
+        GoodPS = GameObject.Find("GoodPS").GetComponent<ParticleSystem>();
+        BadPS = GameObject.Find("BadPS").GetComponent<ParticleSystem>();
+        SliderGoodImage = GameObject.Find("HappySnakeSpriteFace");
+        SliderRegImage = GameObject.Find("RegSnakeSpriteFace");
+        SliderBadImage = GameObject.Find("SadSnakeSpriteFace");
+        SliderImage = GameObject.Find("TimerImage");
+        SliderForProgressTimer = GameObject.Find("Slider"); //TimerImage
+        OURSLIDER = SliderForProgressTimer.GetComponent<Slider>();
+
+        
         locationsY.Add(16);
         locationsY.Add(14);
         locationsY.Add(12);
@@ -108,10 +134,6 @@ public class GameHandler : MonoBehaviour {
         } 
     }
 
-
- 
-
-
     public static int GetScore() {
         return score;
     }
@@ -120,8 +142,6 @@ public class GameHandler : MonoBehaviour {
         score -= sc;
     }
 
-
-
     public static void AddScore(int sc) {
         score += sc;
     }
@@ -129,10 +149,6 @@ public class GameHandler : MonoBehaviour {
 
     // Add Score and add Progress Bar if needed
     public static void AddProgressBar() {
-
-        Debug.Log("Score: " + score);
-
-  
         if (score > length) {
             if (curProgPart < 17) {
                 
@@ -150,7 +166,15 @@ public class GameHandler : MonoBehaviour {
                 
                 curProgPart++;
             }
-            score = 0;
+
+            if (!isPrizesSpwaned) {
+                SetProgressTimer();
+                score = 0;
+            }
+            else {
+                SetProgressTimerToMax();
+                score = length;
+            }
         }
     }
 
@@ -162,13 +186,59 @@ public class GameHandler : MonoBehaviour {
             progPart = GameObject.Find(curProgPart.ToString());
             progPart.GetComponent<SpriteRenderer>().enabled = false;
 
-         
-            //ScoreWindow.hideThougth(curProgPart - 1); //Text on progress bar. I dont use it
-         
+
+            if (!isPrizesSpwaned) {
+                SetProgressTimer();
+            }
+            else {
+                SetProgressTimerToMax();
+            }
         }
     }
-        
-    
+
+    public static void SetProgressImage(string type) {
+
+        if (type == "Good") {
+            //TODO: 1. change image
+            //      2. Wait few second
+            //      3. change image to regular
+
+            SliderImage.GetComponent<Image>().sprite = SliderGoodImage.GetComponent<SpriteRenderer>().sprite;
+            GoodPS.Clear();
+            GoodPS.Play();
+
+        }
+        else if (type == "Bad") {
+            SliderImage.GetComponent<Image>().sprite = SliderBadImage.GetComponent<SpriteRenderer>().sprite;
+            //TODO: 1. change image
+            //      2. Wait few second
+            //      3. change image to regular
+            BadPS.Clear();
+            BadPS.Play();
+
+        }
+        else if (type == "Reg") {
+            SliderImage.GetComponent<Image>().sprite = SliderRegImage.GetComponent<SpriteRenderer>().sprite;
+            //TODO: 1. change image
+            //      2. Wait few second
+            //      3. change image to regular
+
+        }
+    }
+
+
+
+    public static void SetProgressTimer() {
+        double tempScore = (double)GetScore() / length * 100;
+        int finalScore = (int)tempScore;
+        OURSLIDER.value = finalScore;
+    }
+
+    public static void SetProgressTimerToMax() {
+        OURSLIDER.value = 100;
+    }
+
+
 
     private static List<Vector2Int> prizesLocations = new List<Vector2Int>();
     public static int numOfPrizesGot;

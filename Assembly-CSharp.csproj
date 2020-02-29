@@ -102,6 +102,7 @@
     <None Include="Assets\Fonts\Suez_One\OFL.txt" />
     <None Include="Assets\LightningBolt\Readme.txt" />
     <None Include="Assets\CodeMonkey\README.txt" />
+    <None Include="Assets\Fonts\Heebo\OFL.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/Neil_Lipetz/Desktop/Programing/Cards/Snake/Snake/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
